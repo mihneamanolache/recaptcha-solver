@@ -1,0 +1,16 @@
+/src
+/node_modules
+/.git
+/.github
+/tests
+
+tsconfig.json
+.DS_Store
+*.config.*
+.mocharc.json
+*.png
+.DS_Store
+
+yarn.lock
+yarn-error.log
+package-lock.json
