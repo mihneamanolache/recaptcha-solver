@@ -1,29 +1,30 @@
-name: Continuous Integration
+name: Node.js CI
 
 on:
   pull_request:
     branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x] 
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: yarn install
+    - name: Install Python
+      run: sudo apt-get install python3 -y 
 
-      - name: Test with browserless
-        uses: jexniemi/browserless-action-runner@v0.1
-        with:
-          start_commands: |
-            yarn test
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build and test
+      run: npm run test
