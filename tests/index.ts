@@ -25,7 +25,6 @@ describe("Solve rektCaptcha", (): void => {
         const $recaptcha = await $recaptchaFrame?.contentFrame();
         const $checkBox = await $recaptcha?.$(".recaptcha-checkbox");
         const ariaChecked = await $checkBox?.getAttribute("aria-checked");
-        await page.screenshot({ path: "playwright.png" });
         expect(ariaChecked).to.equal("true");
         await browser.close();
     });
@@ -51,7 +50,6 @@ describe("Solve rektCaptcha", (): void => {
         const $recaptcha = await $recaptchaFrame?.contentFrame();
         const ariaChecked = await $recaptcha?.$eval(".recaptcha-checkbox", (el) => el.getAttribute("aria-checked"));
         console.log(ariaChecked + "\n\n\n");
-        await page.screenshot({ path: "puppeteer.png" });
         expect(ariaChecked).to.equal("true");
         await browser.close();
     });
