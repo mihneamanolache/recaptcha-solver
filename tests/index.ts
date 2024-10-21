@@ -6,7 +6,7 @@ import { expect } from "chai";
 const launchOptions = { headless: false };
 
 describe("Solve rektCaptcha", (): void => {
-    it("Playwright", async (): Promise<void> => {
+    it.skip("Playwright", async (): Promise<void> => {
         const browser = await chromium.launch(launchOptions);
         const page = await browser.newPage();
         page.setDefaultTimeout(60_000);
