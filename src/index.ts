@@ -1,4 +1,5 @@
 import fs from "fs";
+import os from 'os';
 import path from "path";
 import type { Page as PlaywrightPage, ElementHandle as PlaywrightElementHandle, Frame as PlaywrightFrame } from "playwright";
 import type { Page as PuppeteerPage, ElementHandle as PuppeteerElementHandle, Frame as PuppeteerFrame } from "puppeteer";
@@ -10,7 +11,8 @@ import tmp, { type FileResult } from 'tmp';
 import debug, { type Debugger } from 'debug';
 
 const MODEL_URL: string = 'https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip';
-const MODEL_DIR: string = path.join(__dirname, 'models');
+const HOME_DIR = os.homedir();
+const MODEL_DIR = path.join(HOME_DIR, '.rektCaptcha', 'models');
 const MODEL_PATH: string = path.join(MODEL_DIR, 'vosk-model-small-en-us-0.15');
 
 // Type guards to check if we are working with Playwright or Puppeteer
@@ -59,7 +61,12 @@ export default class RektCaptcha {
      * @returns {Promise<void>} - Resolves when the model is ready.
      */
     protected async downloadModel(): Promise<void> {
-        if (fs.existsSync(MODEL_DIR)) {
+        if ([
+            'am/final.mdl',
+            'graph/HCLr.fst',
+            'graph/Gr.fst',
+            'ivector/final.dubm'
+        ].every((file): boolean => fs.existsSync(path.join(MODEL_DIR, file)))) {
             this.logger('Model already exists, skipping download.');
             return;
         }
@@ -84,7 +91,7 @@ export default class RektCaptcha {
      * Solves the reCAPTCHA challenge.
      */
     public async solve(): Promise<void> {
-        console.debug("Solving reCAPTCHA...");
+        this.logger("Solving reCAPTCHA.");
 
         const $recaptcha: PlaywrightElementHandle | PuppeteerElementHandle | null = await this.waitForSelector("iframe[src*='recaptcha']");
         if (!$recaptcha) throw new Error("reCAPTCHA iframe not found");
