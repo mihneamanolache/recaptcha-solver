@@ -1,0 +1,44 @@
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.18.0]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install ffmpeg
+      run: sudo apt-get install ffmpeg -y
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Create model directory
+      run: mkdir -p ~/.rektCaptcha/models
+
+    - name: Download and extract model
+      run: |
+        curl -o vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+        unzip vosk-model-small-en-us-0.15.zip -d ~/.rektCaptcha/models
+        rm vosk-model-small-en-us-0.15.zip
+    
+    - name: Test with browserless
+      uses: jexniemi/browserless-action-runner@v0.1
+      with:
+        start_commands: |
+          yarn test
+      env:
+          DEBUG: rektcaptcha*
