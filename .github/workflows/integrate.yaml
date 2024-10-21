@@ -24,7 +24,7 @@ jobs:
       run: sudo apt-get install python3 -y 
 
     - name: Install dependencies
-      run: yarn install
+      run: npm install
 
     - name: Test with browserless
       uses: jexniemi/browserless-action-runner@v0.1
