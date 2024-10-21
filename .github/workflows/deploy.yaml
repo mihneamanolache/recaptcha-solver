@@ -19,8 +19,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
 
+      - name: Install node-gyp globally
+        run: npm install -g node-gyp
+
       - name: Install Dependencies
-        run: yarn install
+        run: npm install
 
       - name: Compile
         run: yarn build
