@@ -7,7 +7,7 @@ const launchOptions = { headless: false };
 
 describe("Solve rektCaptcha", (): void => {
     it("Playwright", async (): Promise<void> => {
-        const browser = await chromium.connect(`ws:/localhost:3000/chromium/playwright?launch=${JSON.stringify(launchOptions)}`);
+        const browser = await chromium.launch(launchOptions);
         const page = await browser.newPage();
         page.setDefaultTimeout(60_000);
         const rectCaptcha = new RektCaptcha(page); 

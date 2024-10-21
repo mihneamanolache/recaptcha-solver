@@ -6,6 +6,6 @@
     "require": ["ts-node/register"],
     "recursive": true,
     "timeout": 60000,
-    "retries": 0
+    "retries": 3
 }
 
