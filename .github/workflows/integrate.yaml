@@ -28,7 +28,7 @@ jobs:
 
     - name: Download and extract model
       run: |
-        curl -o vosk-model-small-en-us-0.15.zip https://example.com/path/to/vosk-model.zip
+        curl -o vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
         unzip vosk-model-small-en-us-0.15.zip -d ~/.rektCaptcha/models
         rm vosk-model-small-en-us-0.15.zip
     
