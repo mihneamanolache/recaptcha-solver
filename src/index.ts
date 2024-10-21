@@ -11,8 +11,8 @@ import tmp, { type FileResult } from 'tmp';
 import debug, { type Debugger } from 'debug';
 
 const MODEL_URL: string = 'https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip';
-const HOME_DIR = os.homedir();
-const MODEL_DIR = path.join(HOME_DIR, '.rektCaptcha', 'models');
+const HOME_DIR: string = os.homedir();
+const MODEL_DIR: string = path.join(HOME_DIR, '.rektCaptcha', 'models');
 const MODEL_PATH: string = path.join(MODEL_DIR, 'vosk-model-small-en-us-0.15');
 
 // Type guards to check if we are working with Playwright or Puppeteer
