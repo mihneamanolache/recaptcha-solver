@@ -60,7 +60,7 @@ export default class RektCaptcha {
      * Downloads and extracts the Vosk model for speech-to-text processing.
      * @returns {Promise<void>} - Resolves when the model is ready.
      */
-    protected async downloadModel(): Promise<void> {
+    public async downloadModel(): Promise<void> {
         if ([
             'am/final.mdl',
             'graph/HCLr.fst',
